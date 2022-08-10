@@ -1,0 +1,58 @@
+INSERT INTO artists(name) 
+VALUES
+  ('John'),
+  ('Mike'),
+  ('Lisa'),
+  ('Travis'),
+  ('Timmy'),
+  ('Joseph'),
+  ('Kate'),
+  ('Anny');
+
+INSERT INTO genre(name) 
+VALUES
+  ('Rock'),
+  ('Rap'),
+  ('Classic'),
+  ('Blues'),
+  ('Funk');
+
+INSERT INTO albums 
+VALUES
+  (1, 'High fly', 1984),
+  (2, 'Take two', 2021),
+  (3, 'Round up, round up', 1993),
+  (4, 'Let eat bee', 1960),
+  (5, 'I', 2022),
+  (6, 'Cloudy cloud', 2011),
+  (7, 'Symphony number 5', 1615),
+  (8, 'Two of us', 1999);
+
+INSERT INTO compilations 
+VALUES
+  (1, 'Lizy', 2000),
+  (2, 'Road trip', 2015),
+  (3, 'Mixtape Pt.2', 1996),
+  (4, 'Armagedon soundtrack', 2001),
+  (5, 'Relax music', 2022),
+  (6, 'Music for coding', 2021),
+  (7, 'East vs west', 2017),
+  (8, 'Soundscapes of future', 1987);
+
+INSERT INTO tracks(name, length, album) 
+VALUES
+  ('Hello', 58, 1),
+  ('My', 54, 1),
+  ('Imagination', 45, 1),
+  ('Is', 76, 2),
+  ('To', 45, 2),
+  ('Weak', 64, 3),
+  ('For', 23, 4),
+  ('This', 45, 5),
+  ('Kind', 78, 5),
+  ('Of', 54, 5),
+  ('Staff', 56, 6),
+  ('So', 55, 6),
+  ('Bye', 43, 7),
+  ('Bro', 44, 8),
+  ('Ok?', 39, 8);
