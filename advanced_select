@@ -1,0 +1,71 @@
+SELECT g.name, COUNT(a.id) FROM artists AS a
+JOIN genreartists AS ga ON a.id = ga.artist
+JOIN genre AS g ON g.id = ga.genre
+GROUP BY g.name
+ORDER BY COUNT(a.id) DESC;
+
+SELECT year, COUNT(t.id) FROM tracks AS t
+JOIN albums AS a ON a.id = t.album
+WHERE year = 2019 OR year = 2020
+GROUP BY year;
+
+SELECT a.name, AVG(t.length) FROM tracks AS t
+JOIN albums AS a ON a.id = t.album
+GROUP BY a.name;
+
+SELECT a.name FROM artists AS a
+JOIN artistsalbums AS aa ON a.id = aa.artist
+JOIN albums AS al ON al.id = aa.album
+WHERE al.year != 2020
+GROUP BY a.name;
+
+SELECT c.name FROM tracks AS t
+JOIN compilationstracks AS ct ON t.id = ct.track
+JOIN compilations AS c ON c.id = ct.compilation
+JOIN albums AS al ON al.id = t.album
+JOIN artistsalbums AS aa ON al.id = aa.album
+JOIN artists AS ar ON ar.id = aa.artist
+WHERE ar.name = 'John'
+GROUP BY c.name;
+
+SELECT a.name, COUNT(g.name) FROM albums AS a
+JOIN artistsalbums AS aa ON a.id = aa.album
+JOIN artists AS ar ON ar.id = aa.artist
+JOIN genreartists AS ga ON ar.id = ga.artist
+JOIN genre AS g ON g.id = ga.genre
+GROUP BY a.name
+HAVING COUNT(g.name) > 1;
+
+SELECT t.name FROM tracks AS t
+LEFT JOIN compilationstracks AS ct ON t.id = ct.track
+LEFT JOIN compilations AS c ON c.id = ct.compilation
+WHERE c.name IS NULL
+GROUP BY t.name;
+
+SELECT * FROM (
+  SELECT ar.name, ((SUM(t.length)) / COUNT(t.id)) as avarage FROM artists AS ar
+  JOIN artistsalbums AS aa ON ar.id = aa.artist
+  JOIN albums AS al ON al.id = aa.album
+  JOIN tracks AS t ON al.id = t.album
+  GROUP BY ar.name
+) AS foo
+WHERE avarage = (SELECT MAX(avarage) FROM (
+  SELECT ar.name, ((SUM(t.length)) / COUNT(t.id)) as avarage FROM artists AS ar
+  JOIN artistsalbums AS aa ON ar.id = aa.artist
+  JOIN albums AS al ON al.id = aa.album
+  JOIN tracks AS t ON al.id = t.album
+  GROUP BY ar.name
+) AS foo2);
+
+SELECT * FROM (
+  SELECT a.name, COUNT(t.id) FROM albums AS a
+  JOIN tracks AS t ON a.id = t.album
+  GROUP BY a.name
+) AS foo3
+WHERE count = (
+  SELECT MIN(count) FROM (
+    SELECT a.name, COUNT(t.id) FROM albums AS a
+    JOIN tracks AS t ON a.id = t.album
+    GROUP BY a.name
+) AS foo4
+);
